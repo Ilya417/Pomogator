@@ -13,7 +13,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 // --- Настройки уведомлений ---
 const ADMIN_EMAIL = 'ily4glotov@yandex.ru';
-const TG_BOT_TOKEN = '8491548873:AAE_DDgazopwT0VXf51RKtA2gcvhmhBOKwk';
+const TG_BOT_TOKEN = '8525863322:AAHpkeIzdBIzgpxg1DCuOqR7z0ihzfS_yMo';
 const TG_CHAT_ID = '1920949380';
 
 const sendTgMessage = async (ticket) => {
