@@ -72,9 +72,20 @@ function AuthPage({ isDark }) {
   const [password, setPassword] = useState('');
 
   const loginWithProvider = async (provider) => {
-    const { error } = await supabase.auth.signInWithOAuth({ provider });
-    if (error) alert("Ошибка провайдера: " + error.message);
-  };
+  if (provider === 'vk' || provider === 'yandex') {
+    alert("🚀 Интеграция с " + provider.toUpperCase() + " находится в режиме тестирования (Sandbox). Пожалуйста, воспользуйтесь Google или стандартным входом.");
+    return;
+  }
+  
+  const { error } = await supabase.auth.signInWithOAuth({ 
+    provider: provider,
+    options: {
+      redirectTo: window.location.origin
+    }
+  });
+  
+  if (error) alert("Ошибка: " + error.message);
+};
 
   const handleEmailAuth = async (e) => {
     e.preventDefault();
