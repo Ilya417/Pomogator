@@ -76,21 +76,14 @@ function AuthPage({ isDark }) {
     if (error) alert("Ошибка провайдера: " + error.message);
   };
 
-const loginWithProvider = async (provider) => {
-  if (provider === 'vk' || provider === 'yandex') {
-    alert("🚀 Интеграция с " + provider.toUpperCase() + " находится в режиме тестирования (Sandbox). Пожалуйста, воспользуйтесь Google или стандартным входом.");
-    return;
-  }
-  
-  const { error } = await supabase.auth.signInWithOAuth({ 
-    provider: provider,
-    options: {
-      redirectTo: window.location.origin
+  const handleEmailAuth = async (e) => {
+    e.preventDefault();
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) {
+      const { error: signUpError } = await supabase.auth.signUp({ email, password });
+      if (signUpError) alert(signUpError.message);
     }
-  });
-  
-  if (error) alert("Ошибка: " + error.message);
-};
+  };
 
   return (
     <div className={`h-screen flex items-center justify-center p-6 ${isDark ? 'bg-[#020617]' : 'bg-slate-50'}`}>
